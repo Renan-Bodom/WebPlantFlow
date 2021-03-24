@@ -25,7 +25,14 @@ SECRET_KEY = '_d5@306g-8fvgf5$b5^f4yosb40&!e!$(=uvvg%kubtz$inlq_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '192.168.0.100',
+    'renanbodom.pythonanywhere.com',
+    'WebPlantFlow.pythonanywhere.com',
+    '.pythonanywhere.com',
+    '.googleapis.com',
+                 ]
 
 
 # Application definition
@@ -104,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
