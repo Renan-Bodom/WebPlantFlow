@@ -1,0 +1,46 @@
+<!DOCTYPE html> {% load static %}
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Yinka Enoch Adedokun">
+        <title>Login WebPlantFlow</title>
+        <!-- <link rel="shortcut icon" href="Coloque aqui o link da imagem"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    </head>
+
+    <body>
+
+
+        <div class="container">
+          <section id="content">
+              <h1><font color="green">WebPlantFlow</font></h1>
+              <font color="green">Auxiliando no seu Jardim</font><br><br>
+              <form action="/usuario/validar_acesso/" method="post">
+                  {% csrf_token %}
+                  <h1>Efetue o login:</h1>
+                  <div>
+                      <!--<input type="email" placeholder="E-mail" name="txtUserEmail" required="" id="txtUserEmail" />-->
+                      <input type="email" id="txtUserEmail" name="txtUserEmail" placeholder="E-mail" value="teste@webplantflow.com"/>
+                  </div>
+                  <div>
+                      <input type="password" id="txtUserPassword" name="txtUserPassword" placeholder="Senha" value="plantflow" />
+                  </div>
+                  <div>
+                      <input type="submit" value="Entrar" />
+                      <a href="#">Esqueceu a senha?</a>
+                  </div>
+              </form><!-- form -->
+              {% include 'includes/messages.html' %}
+
+          </section><!-- content -->
+        </div><!-- container -->
+
+
+
+        <script src="{% static 'js/login.js' %}"></script>
+    </body>
+
+</html>
