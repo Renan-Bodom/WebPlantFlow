@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 import sys
 from WebPlantFlow.pyrebase_settings import db, auth
-from WebPlantFlow.decorators import clear_session
+from WebPlantFlow.decorators import clear_session, validate_session, getSessionUser
 
 # Create your views here.
 
 def conta(request):
-    return render(request,'users/conta.html')
+    data = {}
+    data['SessionUser'] = getSessionUser(request)
+    data['context'] = ""
+    return render(request,'users/conta.html', data)
 
 def login(request):
     return render(request, 'users/login.html')

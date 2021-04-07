@@ -7,4 +7,6 @@ from WebPlantFlow.decorators import validate_session, getSessionUser
 def index(request):
     data = {}
     data['sistema'] = "Web Plant Flow"
+    data['SessionUser'] = getSessionUser(request)
+    data['context'] = ""
     return render(request, 'index/index.html', data)
