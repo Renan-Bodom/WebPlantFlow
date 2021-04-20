@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'index',
     'myGarden',
     'users',
+    'alertas',
 ]
 
 MIDDLEWARE = [
