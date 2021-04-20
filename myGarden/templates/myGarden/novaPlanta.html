@@ -1,0 +1,27 @@
+{% extends '_layout.html' %}
+{% block title %}Conta{% endblock %}
+{% block tituloCard %}Inserindo nova planta no jardim: <div style="float: right;"> <a href="/meujardim/" class="btn btn-light btn-sm">Voltar ao jardim</a> <div>{% endblock %}
+
+{% block content %}
+<br>
+
+
+<form>
+    {% csrf_token %}
+    <div>
+        <label>Nome:</label>
+        <input type="text" name="nome">
+    </div>
+
+
+
+    <br>
+    <center>
+        <button type="submit" name="cadastrarPlanta" class="btn btn-primary">Cadastrar</button>
+    </center>
+</form>
+
+
+<br>
+
+{% endblock %}

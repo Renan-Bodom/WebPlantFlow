@@ -8,4 +8,14 @@ def myGarden(request):
     data['sistema'] = "Web Plant Flow"
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
+
     return render(request, 'myGarden/myGarden.html', data)
+
+
+def novaPlanta(request):
+    data = {}
+    data['SessionUser'] = getSessionUser(request)
+    data['context'] = ""
+
+    return render(request, 'myGarden/novaPlanta.html', data)
+
