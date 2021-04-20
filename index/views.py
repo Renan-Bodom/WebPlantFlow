@@ -9,4 +9,5 @@ def index(request):
     data['sistema'] = "Web Plant Flow"
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
+
     return render(request, 'index/index.html', data)
