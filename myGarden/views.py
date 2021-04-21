@@ -17,8 +17,11 @@ def myGarden(request):
     #########  Busca plantas já cadastradas pelo usuário
     plantasSalvas = db.child(bancoJardim).child(request.session.get('userId')).get()
     listaPlantas = []
-    for per in plantasSalvas.each():
-        listaPlantas.append(per.val())
+    try:
+        for per in plantasSalvas.each():
+            listaPlantas.append(per.val())
+    except:
+        print('Jardim vazio')
     data['listaPlantas'] = listaPlantas
 
     return render(request, 'myGarden/myGarden.html', data)
@@ -29,13 +32,22 @@ def novaPlanta(request):
     data['SessionUser'] = getSessionUser(request)
     data['context']     = ""
 
-    if request.method == 'POST':
-        nome        = "nome"
-        formNome    = request.POST.get(nome, '')
+    ########### Carrega lista de plantas cadastradas
+    loadListaPlantas = db.child('listaPlantas').get()
+    listaPlantasBanco = []
+    for planta in loadListaPlantas.each():
+        listaPlantasBanco.append(planta.val())
+    data['listaPlantasBanco'] = listaPlantasBanco
 
-        formPronto = {"nome":   formNome,
-                      "outro":  "Outras informações"}
-        db.child(bancoJardim).child(request.session.get('userId')).child(formNome).set(formPronto)
+    if request.method == 'POST':
+        formApelido    = request.POST.get("apelido", '')
+        formNomeCientifico    = request.POST.get("nomeCientifico", '')
+        formData    = request.POST.get("data", '')
+
+        formPronto = {"apelido":   formApelido,
+                      "nomeCientifico":  formNomeCientifico,
+                      "data": formData}
+        db.child(bancoJardim).child(request.session.get('userId')).child(formApelido).set(formPronto)
 
         return redirect(urlJardim)
 
