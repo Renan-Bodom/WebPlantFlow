@@ -9,10 +9,23 @@
 <form method="post">
     {% csrf_token %}
     <div>
-        <label>Nome:</label>
-        <input type="text" name="nome">
+        <label>Apelido:</label>
+        <input type="text" name="apelido">
     </div>
-
+    <br>
+    <div>
+        <label>Espécie:</label>
+        <select name="nomeCientifico">
+            {% for planta in listaPlantasBanco %}
+                <option value="{{ planta.cientifico }}">{{ planta.popular }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br>
+    <div>
+        <label>Data da aquisição:</label>
+        <input type="date" name="data">
+    </div>
 
 
     <br>
