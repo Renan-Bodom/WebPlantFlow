@@ -5,35 +5,33 @@
 {% block content %}
 <br>
 
+<center>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label>Apelido:</label>
+            <input type="text" name="apelido" required>
+        </div>
+        <br>
+        <div>
+            <label>Espécie:</label>
+            <select name="nomeCientifico">
+                {% for planta in listaPlantasBanco %}
+                    <option value="{{ planta.cientifico }}">{{ planta.popular }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div>
+            <label>Data da aquisição:</label>
+            <input type="date" name="data">
+        </div>
 
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label>Apelido:</label>
-        <input type="text" name="apelido" required>
-    </div>
-    <br>
-    <div>
-        <label>Espécie:</label>
-        <select name="nomeCientifico">
-            {% for planta in listaPlantasBanco %}
-                <option value="{{ planta.cientifico }}">{{ planta.popular }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <br>
-    <div>
-        <label>Data da aquisição:</label>
-        <input type="date" name="data">
-    </div>
 
-
-    <br>
-    <center>
+        <br>
         <button type="submit" name="cadastrarPlanta" class="btn btn-primary">Cadastrar</button>
-    </center>
-</form>
-
+    </form>
+</center>
 
 <br>
 
