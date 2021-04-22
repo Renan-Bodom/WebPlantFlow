@@ -18,8 +18,12 @@ def myGarden(request):
     plantasSalvas = db.child(bancoJardim).child(request.session.get('userId')).get()
     listaPlantas = []
     try:
-        for per in plantasSalvas.each():
-            listaPlantas.append(per.val())
+        for plantaUser in plantasSalvas.each():
+            planta = plantaUser.val()
+            planta['popular'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['popular']
+            planta['foto'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['foto']
+            planta['info'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['informacoes']
+            listaPlantas.append(planta)
     except:
         print('Jardim vazio')
     data['listaPlantas'] = listaPlantas

@@ -17,9 +17,11 @@
 <table id="tabela" class="table table-hover">
     <thead>
         <tr>
-            <th>Data cadastro</th>
+            <th>Apelido</th>
 
             <th>Planta</th>
+
+            <th>Informações</th>
 
             <th>Data aquisição</th>
 
@@ -29,10 +31,15 @@
     <tbody>
         {% for planta in listaPlantas %}
         <tr>
+            <th><img src="{{ planta.foto }}" style="max-width:50px; width: auto;">{{ planta.apelido }}</th>
 
-            <th>{{ planta.apelido }}</th>
+            <td>{{ planta.popular }}</td>
 
-            <td>{{ planta.nomeCientifico }}</td>
+            <td>
+                <a href="{{ planta.info }}" target="_blank">
+                    <img src="https://www.jardineiro.net/wp-content/uploads/2020/01/Logo_transparente.png" style="max-width:100px; width: auto;">
+                </a>
+            </td>
 
             <td>{{ planta.data }}</td>
 
