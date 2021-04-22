@@ -80,3 +80,15 @@ def alterarPlanta(request, planta): # Falta carregar os dados para alterar no te
         return redirect(urlJardim)
 
     return render(request, 'myGarden/novaPlanta.html', data)
+
+
+
+def cuidadosPlanta(request, planta):
+    data = {}
+    data['SessionUser'] = getSessionUser(request)
+    data['context'] = ""
+
+    data['planta'] = planta
+
+
+    return render(request, 'myGarden/cuidadosPlanta.html', data)
