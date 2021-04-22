@@ -6,5 +6,5 @@ urlpatterns = [
     path('novaPlanta/', views.novaPlanta),
     path('excluirPlanta/<planta>', views.excluirPlanta),
     path('alterarPlanta/<planta>', views.alterarPlanta),
-    path('cuidadosPlanta/<planta>', views.cuidadosPlanta)
+    path('cuidadosPlanta/<plantaSelc>', views.cuidadosPlanta)
 ]
