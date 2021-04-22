@@ -69,14 +69,23 @@ def alterarPlanta(request, planta): # Falta carregar os dados para alterar no te
     data['SessionUser'] = getSessionUser(request)
     data['context']     = ""
 
-    if request.method == 'POST':
-        nome        = "nome"
-        formNome    = request.POST.get(nome, '')
-
-        formPronto = {"nome":   formNome,
-                      "outro":  "Outras informações"}
-        db.child(bancoJardim).child(request.session.get('userId')).child(formNome).set(formPronto)
-
-        return redirect(urlJardim)
-
     return render(request, 'myGarden/novaPlanta.html', data)
+
+
+
+def cuidadosPlanta(request, plantaSelc):
+    data = {}
+    data['SessionUser'] = getSessionUser(request)
+    data['context'] = ""
+
+    #########  Planta do usuário
+    plantaUser = db.child(bancoJardim).child(request.session.get('userId')).child(plantaSelc).get()
+    data['plantaUsuario'] = plantaUser.val()
+
+    #########  Planta do banco
+    plantaBanco = db.child('listaPlantas').child(plantaUser.val()['nomeCientifico']).get()
+    data['plantaBanco'] = plantaBanco.val()
+
+
+
+    return render(request, 'myGarden/cuidadosPlanta.html', data)

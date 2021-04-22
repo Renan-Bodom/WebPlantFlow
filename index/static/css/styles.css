@@ -1,3 +1,20 @@
-.teste{
-    color: red;
+.tabelaCuidados{
+    display: flex;
+    justify-content: center;
+}
+
+.descVerde{
+    color: #006400;
+    font-weight: bold;
+}
+
+.descGrandeVerde{
+    color: #006400;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.divLadoLado{
+    display: inline-block;
+    vertical-align: bottom;
 }
