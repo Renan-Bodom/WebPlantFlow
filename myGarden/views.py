@@ -86,6 +86,15 @@ def cuidadosPlanta(request, plantaSelc):
     plantaBanco = db.child('listaPlantas').child(plantaUser.val()['nomeCientifico']).get()
     data['plantaBanco'] = plantaBanco.val()
 
+    if request.method == 'POST':
+        formAgua = request.POST.get("agua", '')
+        formSol = request.POST.get("sol", '')
 
+        formPronto = {"agua": formAgua,
+                      "sol": formSol}
+        db.child(bancoJardim).child(request.session.get('userId')).child(plantaSelc).child('cuidados').set(formPronto)
+
+
+        return redirect('/meujardim/cuidadosPlanta/'+plantaSelc)
 
     return render(request, 'myGarden/cuidadosPlanta.html', data)

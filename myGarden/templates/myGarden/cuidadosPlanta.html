@@ -34,6 +34,9 @@
 </div>
 
 <br><br><br><br>
+<form method="post" id="meusCuidadosForm">
+    {% csrf_token %}
+</form>
 <div class="tabelaCuidados">
     <table class="table table-bordered" style="background-color:#C7FBD3">
         <colgroup>
@@ -51,20 +54,21 @@
         <tbody>
             <tr>
                 <th>Água</th>
-                <td>20ml</td>
+                <td><input type="text" name="agua" form="meusCuidadosForm" /></td>
                 <td>22ml</td>
                 <td>10ml</td>
             </tr>
 
             <tr>
                 <th>Sol</th>
-                <td>2hs</td>
+                <td><input type="text" name="sol" form="meusCuidadosForm" /></td>
                 <td>1hs</td>
                 <td>1hs</td>
             </tr>
         </tbody>
     </table>
 </div>
+<button type="submit" class="btn btn-primary" form="meusCuidadosForm">Atualizar cuidados</button>
 
 <br>
 <br>
