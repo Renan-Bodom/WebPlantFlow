@@ -88,12 +88,30 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
     data['plantaUsuario'] = plantaUser.val()
 
     #########  Planta de todos os usuarios
-    '''
-    plantaTodosUser = db.child(bancoJardim).child(*).child(plantaSelc).get()
-    data['plantaUsuario'] = plantaTodosUser.val()
-    for user in db.child(bancoJardim).get().each():
-        print(user.val())
-        '''
+    jardimTodosUser = db.child(bancoJardim).get()
+    plantasDaEspecie = []
+    for plantaTodos in jardimTodosUser.each():
+        plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
+    cuidadosPlantaTodos = []
+    for dadosPlantaTodos in plantasDaEspecie:
+        for nome in dadosPlantaTodos:
+            try:
+                cuidadosPlantaTodos.append(dadosPlantaTodos[nome]['cuidados'])
+            except:
+                print('plantas sem cuidados')
+
+    qtdAgua = 0
+    qtdSol = 0
+    for medir in cuidadosPlantaTodos:
+        qtdAgua = qtdAgua + int(medir['agua'])
+        qtdSol = qtdSol + int(medir['sol'])
+    mediaQtdAgua = qtdAgua/len(cuidadosPlantaTodos)
+    data['mediaQtdAgua'] = mediaQtdAgua
+    data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
+    mediaQtdSol = qtdSol/len(cuidadosPlantaTodos)
+    data['mediaQtdSol'] = mediaQtdSol
+    data['diferencaQtdSol'] = abs(mediaQtdSol - int(plantaUser.val()['cuidados']['sol']))
+
 
     #########  Planta do banco
     plantaBanco = db.child('listaPlantas').child(especiePlantaSelc).get()

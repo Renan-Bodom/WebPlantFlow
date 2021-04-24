@@ -55,15 +55,15 @@
             <tr>
                 <th>Quant. água ml</th>
                 <td><input type="number" min="1" name="agua" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.agua }}" /></td>
-                <td>22ml</td>
-                <td>10ml</td>
+                <td>{{ mediaQtdAgua }} ml</td>
+                <td>{{ diferencaQtdAgua }} ml</td>
             </tr>
 
             <tr>
                 <th>Horas de Sol</th>
                 <td><input type="number" min="1" name="sol" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.sol }}"/></td>
-                <td>1hs</td>
-                <td>1hs</td>
+                <td>{{ mediaQtdSol }} hs</td>
+                <td>{{ diferencaQtdSol }} hs</td>
             </tr>
         </tbody>
     </table>
