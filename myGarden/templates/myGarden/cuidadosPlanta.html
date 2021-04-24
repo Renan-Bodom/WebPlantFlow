@@ -53,15 +53,15 @@
 
         <tbody>
             <tr>
-                <th>Água</th>
-                <td><input type="text" name="agua" form="meusCuidadosForm" /></td>
+                <th>Quant. água ml</th>
+                <td><input type="number" min="1" name="agua" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.agua }}" /></td>
                 <td>22ml</td>
                 <td>10ml</td>
             </tr>
 
             <tr>
-                <th>Sol</th>
-                <td><input type="text" name="sol" form="meusCuidadosForm" /></td>
+                <th>Horas de Sol</th>
+                <td><input type="number" min="1" name="sol" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.sol }}"/></td>
                 <td>1hs</td>
                 <td>1hs</td>
             </tr>
