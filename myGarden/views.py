@@ -107,10 +107,16 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
         qtdSol = qtdSol + int(medir['sol'])
     mediaQtdAgua = qtdAgua/len(cuidadosPlantaTodos)
     data['mediaQtdAgua'] = mediaQtdAgua
-    data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
+    try:
+        data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
+    except:
+        data['diferencaQtdAgua'] = abs(mediaQtdAgua - 0)
     mediaQtdSol = qtdSol/len(cuidadosPlantaTodos)
     data['mediaQtdSol'] = mediaQtdSol
-    data['diferencaQtdSol'] = abs(mediaQtdSol - int(plantaUser.val()['cuidados']['sol']))
+    try:
+        data['diferencaQtdSol'] = abs(mediaQtdSol - int(plantaUser.val()['cuidados']['sol']))
+    except:
+        data['diferencaQtdSol'] = abs(mediaQtdSol - 0)
 
 
     #########  Planta do banco
