@@ -92,14 +92,17 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
         jardimTodosUser = db.child(bancoJardim).get()
         plantasDaEspecie = []
         for plantaTodos in jardimTodosUser.each():
-            plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
+            try:
+                plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
+            except:
+                print('Jardineiro sem essa planta')
         cuidadosPlantaTodos = []
         for dadosPlantaTodos in plantasDaEspecie:
             for nome in dadosPlantaTodos:
                 try:
                     cuidadosPlantaTodos.append(dadosPlantaTodos[nome]['cuidados'])
                 except:
-                    print('plantas sem cuidados')
+                    print('Ninguém cuidando dessa planta')
 
         qtdAgua = 0
         qtdSol = 0
