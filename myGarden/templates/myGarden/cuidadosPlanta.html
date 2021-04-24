@@ -34,23 +34,41 @@
 </div>
 
 <br><br><br><br>
+<form method="post" id="meusCuidadosForm">
+    {% csrf_token %}
+</form>
 <div class="tabelaCuidados">
-    <table>
-        <tr>
-            <td>Item</td>
-            <td>Meu cuidado</td>
-            <td>Comunidade</td>
-            <td>Diferênça</td>
-        </tr>
+    <table class="table table-bordered" style="background-color:#C7FBD3">
+        <colgroup>
+            <col span="1" style="background-color:#7FF49B">
+        </colgroup>
+        <thead style="background-color:#7FF49B">
+            <tr>
+                <th>Item</th>
+                <th>Meu cuidado</th>
+                <th>Comunidade</th>
+                <th>Diferênça</th>
+            </tr>
+        </thead>
 
-        <tr>
-            <td>Água</td>
-            <td>20ml</td>
-            <td>22ml</td>
-            <td>10ml</td>
-        </tr>
+        <tbody>
+            <tr>
+                <th>Quant. água ml</th>
+                <td><input type="number" min="1" name="agua" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.agua }}" /></td>
+                <td>{{ mediaQtdAgua }} ml</td>
+                <td>{{ diferencaQtdAgua }} ml</td>
+            </tr>
+
+            <tr>
+                <th>Horas de Sol</th>
+                <td><input type="number" min="1" name="sol" class='form-control' form="meusCuidadosForm" value="{{ plantaUsuario.cuidados.sol }}"/></td>
+                <td>{{ mediaQtdSol }} hs</td>
+                <td>{{ diferencaQtdSol }} hs</td>
+            </tr>
+        </tbody>
     </table>
 </div>
+<button type="submit" class="btn btn-primary" form="meusCuidadosForm">Atualizar cuidados</button>
 
 <br>
 <br>

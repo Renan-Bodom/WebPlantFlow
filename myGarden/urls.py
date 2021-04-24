@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.myGarden, name='myGarden'),
     path('novaPlanta/', views.novaPlanta),
-    path('excluirPlanta/<planta>', views.excluirPlanta),
-    path('alterarPlanta/<planta>', views.alterarPlanta),
-    path('cuidadosPlanta/<plantaSelc>', views.cuidadosPlanta)
+    path('excluirPlanta/<especiePlantaSelc>/<plantaSelc>', views.excluirPlanta),
+    path('alterarPlanta/<especiePlantaSelc>/<plantaSelc>', views.alterarPlanta),
+    path('cuidadosPlanta/<especiePlantaSelc>/<plantaSelc>', views.cuidadosPlanta)
 ]
