@@ -10,6 +10,11 @@ def conta(request):
     data = {}
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
+
+    if request.method == "POST":
+        nome = request.POST.get('nome', '')
+        cidade = request.POST.get('cidade', '')
+        print('Atualizar conta de', nome, 'na cidade', cidade)
     return render(request,'users/conta.html', data)
 
 def login(request):

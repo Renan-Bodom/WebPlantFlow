@@ -1,17 +1,49 @@
 {% extends '_layout.html' %}
 {% block title %}Conta{% endblock %}
-{% block tituloCard %}Informações do cadastro:{% endblock %}
+{% block tituloCard %}Informações do cadastro: <div style="float: right;"> <a href="./removerCadastro/{{ SessionUser.userId }}" class="btn btn-light btn-sm">Excluir conta!</a> <div>{% endblock %}
 
 {% block content %}
 
 <center>
-    <h1 class="teste">Tela da conta</h1>
+
+    <form method="post">
+                    {% csrf_token %}
+                    <h1>Jardineiro</h1>
+                    <div>
+                        <label><font color="green">Nome:</font></label>
+                        <input type="text" style="max-width: 400px;" class="form-control" name="nome" value="{{ SessionUser.nomeUsuario }}" required>
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <label><font color="green">Cidade:</font></label>
+                        <input type="text" style="max-width: 400px;" class="form-control" name="cidade" value="{{ SessionUser.cidadeUsuario }}" required>
+                    </div>
+
+                    <br>
+
+                    <button type="submit" class="btn btn-success">Atualizar cadastro</button>
+
+                    <br><br><br>
+
+                    <div>
+                        <label><font color="green">E-mail:</font></label><br>
+                        testes@teste.com
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <label><font color="green">Senha:</font></label><br>
+                        <a href="#" class="btn btn-secondary">Redefinir por e-mail</a>
+                    </div>
+
+                </form>
+
+
 </center>
 
 <br>
-
-<center>
-    <a href="./removerCadastro/{{ SessionUser.userId }}">Excluir conta</a>
-</center>
 
 {% endblock %}
