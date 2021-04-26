@@ -1,46 +1,60 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cadastro WPF</title>
-
+    <!-- <link rel="shortcut icon" href="Coloque aqui o link da imagem"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
 </head>
 <body>
 
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label>Nome:</label>
-        <input type="text" name="nome" required>
-    </div>
 
-    <br>
+<div class="container">
+            <section id="content">
+                <img src="{% static 'img/Logo WebPlantFlow.png' %}" style="max-width:300px; width: auto;">
+                <br>
+                <font color="green">Muito obrigado por se cadastrar!</font><br><br>
 
-    <div>
-        <label>Cidade:</label>
-        <input type="text" name="cidade" required>
-    </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <h1>Jardineiro</h1>
+                    <div>
+                        <label><font color="green">Nome:</font></label>
+                        <input type="text" class="form-control" name="nome" required>
+                    </div>
 
-    <br>
+                    <br>
 
-    <div>
-        <label>E-mail:</label>
-        <input type="email" name="email" required>
-    </div>
+                    <div>
+                        <label><font color="green">Cidade:</font></label>
+                        <input type="text" class="form-control" name="cidade" required>
+                    </div>
 
-    <br>
+                    <br>
 
-    <div>
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
-    </div>
+                    <div>
+                        <label><font color="green">E-mail:</font></label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
 
-    <br>
+                    <br>
+
+                    <div>
+                        <label><font color="green">Senha:</font></label>
+                        <input type="password" class="form-control" name="senha" required>
+                    </div>
+
+                    <br>
 
 
-    <button type="submit">Cadastrar</button>
-</form>
+                    <button type="submit">Cadastrar</button>
+                </form><br><br>
 
+    </section>
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
