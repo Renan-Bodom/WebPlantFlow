@@ -72,3 +72,11 @@ def novoCadastro (request):
         redirect('/usuario/entrar/')
 
     return render(request, 'users/novoCadastro.html', data)
+
+
+def removerCadastro (request, userRemover):
+    data = {}
+    data['userRemover'] = userRemover
+    data['nomeUserRemover'] = request.session.get('nomeUsuario')
+
+    return render(request, 'users/removerCadastro.html', data)

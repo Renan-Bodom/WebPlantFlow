@@ -6,5 +6,6 @@ urlpatterns = [
     path('entrar/', views.login),
     path('validar_acesso/', views.valida_senha),
     path('sair/', views.sair),
-    path('cadastro/', views.novoCadastro)
+    path('cadastro/', views.novoCadastro),
+    path('removerCadastro/<userRemover>', views.removerCadastro)
 ]
