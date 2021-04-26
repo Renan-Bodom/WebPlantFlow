@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro WPF</title>
+
+</head>
+<body>
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Cidade:</label>
+        <input type="text" name="cidade" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>E-mail:</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
+    </div>
+
+    <br>
+
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+</body>
+</html>

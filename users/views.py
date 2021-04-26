@@ -49,3 +49,19 @@ def sair (request):
     clear_session(request)
 
     return render(request, "users/login.html")
+
+def novoCadastro (request):
+    data = {}
+    if request.method == "POST":
+        nome = request.POST.get('nome', '')
+        userId = request.POST.get('userId', '')
+        cidade = request.POST.get('cidade', '')
+        email = request.POST.get('email', '')
+        senha = request.POST.get('senha', '')
+
+        print(nome)
+        print(email)
+        #print(userId)
+        print(senha)
+
+    return render(request, 'users/novoCadastro.html', data)
