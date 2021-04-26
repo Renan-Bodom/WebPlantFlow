@@ -85,4 +85,6 @@ def removerCadastro (request, userRemover):
     data['userRemover'] = userRemover
     data['nomeUserRemover'] = request.session.get('nomeUsuario')
 
+    db.child('usersParaRemover').set({"userId": request.session.get('userId')})
+
     return render(request, 'users/removerCadastro.html', data)
