@@ -30,6 +30,7 @@ def valida_senha(request):
         request.session['userEmail'] = email
         request.session['userId'] = sign_user['userId']
         request.session['nomeUsuario'] = userLab.val()['nome']
+        request.session['cidadeUsuario'] = userLab.val()['cidade']
         request.session['perfilUsuario'] = userLab.val()['perfil']
 
 
