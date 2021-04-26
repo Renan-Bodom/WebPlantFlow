@@ -54,14 +54,21 @@ def novoCadastro (request):
     data = {}
     if request.method == "POST":
         nome = request.POST.get('nome', '')
-        userId = request.POST.get('userId', '')
         cidade = request.POST.get('cidade', '')
         email = request.POST.get('email', '')
         senha = request.POST.get('senha', '')
 
-        print(nome)
-        print(email)
-        #print(userId)
-        print(senha)
+        sign_user = auth.create_user_with_email_and_password(email, senha)
+        sign_user = auth.refresh(sign_user['refreshToken'])
+        userId = sign_user['userId']
+
+        formCadastro = {"nome": nome,
+                        "cidade": cidade,
+                        "email": email,
+                        "perfil": "P0",
+                        "userId": userId}
+        db.child('users').child(userId).set(formCadastro)
+
+        redirect('/usuario/entrar/')
 
     return render(request, 'users/novoCadastro.html', data)
