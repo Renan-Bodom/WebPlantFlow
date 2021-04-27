@@ -6,9 +6,10 @@
 
 <br>
 <center>
+    <h2>Considerando sua cidade, sugerimos a seguintes mudanças:</h2><br>
     {% for alerta in mostrarAlertas %}
 
-        {{ alerta }}
+        <a href="/meujardim/cuidadosPlanta/{{ alerta.nomeCientifico }}/{{ alerta.apelido }}" class="btn btn-danger">{{ alerta }}</a>
 
     {% endfor %}
 </center>
