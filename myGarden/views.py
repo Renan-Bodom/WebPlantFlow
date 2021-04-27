@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from WebPlantFlow.decorators import validate_session, getSessionUser
 from WebPlantFlow.pyrebase_settings import db, auth
+from WebPlantFlow.funcoesTodos import mediaDiferenca
 
 # Bancos
 bancoJardim = 'myGarden'
@@ -110,19 +111,13 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
             qtdAgua = qtdAgua + int(medir['agua'])
             qtdSol = qtdSol + int(medir['sol'])
 
-        mediaQtdAgua = qtdAgua/len(cuidadosPlantaTodos)
-        data['mediaQtdAgua'] = mediaQtdAgua
-        try:
-            data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
-        except:
-            data['diferencaQtdAgua'] = abs(mediaQtdAgua - 0)
+        agua = mediaDiferenca(qtdAgua, cuidadosPlantaTodos, plantaUser)
+        data['mediaQtdAgua'] = agua[0]
+        data['diferencaQtdAgua'] = agua[1]
 
-        mediaQtdSol = qtdSol/len(cuidadosPlantaTodos)
-        data['mediaQtdSol'] = mediaQtdSol
-        try:
-            data['diferencaQtdSol'] = abs(mediaQtdSol - int(plantaUser.val()['cuidados']['sol']))
-        except:
-            data['diferencaQtdSol'] = abs(mediaQtdSol - 0)
+        sol = mediaDiferenca(qtdSol, cuidadosPlantaTodos, plantaUser)
+        data['mediaQtdSol'] = sol[0]
+        data['diferencaQtdSol'] = sol[1]
 
     except:
         data['mediaQtdAgua'] = 0
