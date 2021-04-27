@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from WebPlantFlow.decorators import validate_session, getSessionUser
 from WebPlantFlow.pyrebase_settings import db, auth
-from WebPlantFlow.funcoesTodos import mediaDiferenca
+from WebPlantFlow.funcoesTodos import mediaDiferenca, plantasDoUsuario
 
 # Bancos
 bancoJardim = 'myGarden'
@@ -17,22 +17,7 @@ def myGarden(request):
 
     #########  Busca plantas já cadastradas pelo usuário
     plantasSalvas   = db.child(bancoJardim).child(request.session.get('userId')).get()
-    listaPlantas    = []
-    try:
-        listaEspeciePlanta = []
-        for especiePlanta in plantasSalvas.each():
-            listaEspeciePlanta.append(especiePlanta.val())
-        for especieUser in listaEspeciePlanta:
-            for plantaUser in especieUser:
-                planta = especieUser[plantaUser]
-                planta['popular'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['popular']
-                planta['foto'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['foto']
-                planta['info'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['informacoes']
-                listaPlantas.append(planta)
-    except:
-        print('Jardim vazio')
-
-    data['listaPlantas'] = listaPlantas
+    data['listaPlantas'] = plantasDoUsuario(plantasSalvas)
 
     return render(request, 'myGarden/myGarden.html', data)
 
@@ -70,7 +55,7 @@ def excluirPlanta(request, especiePlantaSelc, plantaSelc):
     return redirect(urlJardim)
 
 
-def alterarPlanta(request, especiePlantaSelc,plantaSelc): # Falta carregar os dados para alterar no template
+def alterarPlanta(request, especiePlantaSelc, plantaSelc): # Falta carregar os dados para alterar no template
     data = {}
     data['SessionUser'] = getSessionUser(request)
     data['context']     = ""
