@@ -109,12 +109,14 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
         for medir in cuidadosPlantaTodos:
             qtdAgua = qtdAgua + int(medir['agua'])
             qtdSol = qtdSol + int(medir['sol'])
+
         mediaQtdAgua = qtdAgua/len(cuidadosPlantaTodos)
         data['mediaQtdAgua'] = mediaQtdAgua
         try:
             data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
         except:
             data['diferencaQtdAgua'] = abs(mediaQtdAgua - 0)
+
         mediaQtdSol = qtdSol/len(cuidadosPlantaTodos)
         data['mediaQtdSol'] = mediaQtdSol
         try:
