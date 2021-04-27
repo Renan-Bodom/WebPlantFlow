@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from WebPlantFlow.decorators import validate_session, getSessionUser
 from WebPlantFlow.pyrebase_settings import db, auth
-from WebPlantFlow.funcoesTodos import mediaDiferenca, plantasDoUsuario
+from WebPlantFlow.funcoesTodos import mediaDiferenca, plantasDoUsuario, cuidadosTodos
 
 # Bancos
 bancoJardim = 'myGarden'
@@ -75,20 +75,7 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
 
     #########  Planta de todos os usuarios
     try:
-        jardimTodosUser = db.child(bancoJardim).get()
-        plantasDaEspecie = []
-        for plantaTodos in jardimTodosUser.each():
-            try:
-                plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
-            except:
-                print('Jardineiro sem essa planta')
-        cuidadosPlantaTodos = []
-        for dadosPlantaTodos in plantasDaEspecie:
-            for nome in dadosPlantaTodos:
-                try:
-                    cuidadosPlantaTodos.append(dadosPlantaTodos[nome]['cuidados'])
-                except:
-                    print('Ninguém cuidando dessa planta')
+        cuidadosPlantaTodos = cuidadosTodos(bancoJardim, especiePlantaSelc)
 
         qtdAgua = 0
         qtdSol = 0
@@ -96,11 +83,11 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
             qtdAgua = qtdAgua + int(medir['agua'])
             qtdSol = qtdSol + int(medir['sol'])
 
-        agua = mediaDiferenca(qtdAgua, cuidadosPlantaTodos, plantaUser)
+        agua = mediaDiferenca(qtdAgua, cuidadosPlantaTodos, plantaUser, 'agua')
         data['mediaQtdAgua'] = agua[0]
         data['diferencaQtdAgua'] = agua[1]
 
-        sol = mediaDiferenca(qtdSol, cuidadosPlantaTodos, plantaUser)
+        sol = mediaDiferenca(qtdSol, cuidadosPlantaTodos, plantaUser, 'sol')
         data['mediaQtdSol'] = sol[0]
         data['diferencaQtdSol'] = sol[1]
 
