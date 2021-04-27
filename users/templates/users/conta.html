@@ -11,14 +11,20 @@
                     <h1>Jardineiro</h1>
                     <div>
                         <label><font color="green">Nome:</font></label>
-                        <input type="text" style="max-width: 400px;" class="form-control" name="nome" value="{{ SessionUser.nomeUsuario }}" required>
+                        <input type="text" style="max-width: 400px;" class="form-control" name="nome" value="{{ nomeUser }}" required>
                     </div>
 
                     <br>
 
                     <div>
                         <label><font color="green">Cidade:</font></label>
-                        <input type="text" style="max-width: 400px;" class="form-control" name="cidade" value="{{ SessionUser.cidadeUsuario }}" required>
+                        <select style="max-width: 400px;" class="form-control" name="cidade">
+                            <option value="{{ SessionUser.cidadeUsuario }}" selected>{{ cidadeUser }}</option>
+                            <option value="São Paulo - SP">São Paulo - SP</option>
+                            <option value="Santos - SP">Santos - SP</option>
+                            <option value="Santo André - SP">Santo André - SP</option>
+                            <option value="São Bernado do campo - SP">São Bernado do campo - SP</option>
+                        </select>
                     </div>
 
                     <br>

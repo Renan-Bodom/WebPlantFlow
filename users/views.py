@@ -11,10 +11,21 @@ def conta(request):
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
 
+    dadosConta = db.child('users').child(request.session.get('userId')).get()
+    data['nomeUser'] = dadosConta.val()['nome']
+    data['cidadeUser'] = dadosConta.val()['cidade']
+
+    # Atualizar cadastro
     if request.method == "POST":
         nome = request.POST.get('nome', '')
         cidade = request.POST.get('cidade', '')
-        print('Atualizar conta de', nome, 'na cidade', cidade)
+
+        formCadastro = {'nome': nome,
+                        'cidade': cidade}
+        db.child('users').child(request.session.get('userId')).update(formCadastro)
+
+        return redirect('/meujardim/')
+
     return render(request,'users/conta.html', data)
 
 def login(request):
