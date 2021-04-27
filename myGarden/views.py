@@ -75,7 +75,7 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
 
     #########  Planta de todos os usuarios
     try:
-        cuidadosPlantaTodos = cuidadosTodos(bancoJardim, especiePlantaSelc)
+        cuidadosPlantaTodos = cuidadosTodos(bancoJardim, especiePlantaSelc, request.session.get('cidadeUsuario'))
 
         qtdAgua = 0
         qtdSol = 0

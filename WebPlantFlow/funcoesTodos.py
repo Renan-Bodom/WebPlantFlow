@@ -32,20 +32,24 @@ def plantasDoUsuario(plantasSalvas):
     return listaPlantas
 
 
-def cuidadosTodos (bancoJardim, especiePlantaSelc):
+def cuidadosTodos (bancoJardim, especiePlantaSelc, cidadeUser):
     jardimTodosUser = db.child(bancoJardim).get()
     plantasDaEspecie = []
     for plantaTodos in jardimTodosUser.each():
         try:
-            plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
+            especiesUsers = plantaTodos.val()[especiePlantaSelc]
+            if db.child('users').child(plantaTodos.key()).get().val()['cidade'] == cidadeUser:
+                plantasDaEspecie.append(especiesUsers)
+            else:
+                print('Esse não faz parte da região')
         except:
-            print('Jardineiro sem essa planta')
+            print('Este jardineiro não tem essa planta')
 
     cuidadosPlantaTodos = []
     for dadosPlantaTodos in plantasDaEspecie:
-        for nome in dadosPlantaTodos:
+        for apelido in dadosPlantaTodos:
             try:
-                cuidadosPlantaTodos.append(dadosPlantaTodos[nome]['cuidados'])
+                cuidadosPlantaTodos.append(dadosPlantaTodos[apelido]['cuidados'])
             except:
                 print('Ninguém cuidando dessa planta')
 
