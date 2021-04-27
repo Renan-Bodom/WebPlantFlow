@@ -54,3 +54,9 @@ def cuidadosTodos (bancoJardim, especiePlantaSelc, cidadeUser):
                 print('Ninguém cuidando dessa planta')
 
     return cuidadosPlantaTodos
+
+
+def mensagemAlerta(item, plantaUser):
+    mensagem = 'Quantidade de ' + item + ' para ' + plantaUser['popular'] + '(' + plantaUser['apelido'] +')'
+
+    return mensagem
