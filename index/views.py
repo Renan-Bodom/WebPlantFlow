@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from WebPlantFlow.decorators import validate_session, getSessionUser
 
 
@@ -9,4 +9,5 @@ def index(request):
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
 
-    return render(request, 'index/index.html', data)
+    return redirect('/meujardim/')
+    #return render(request, 'index/index.html', data)
