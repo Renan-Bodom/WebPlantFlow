@@ -10,6 +10,22 @@ def conta(request):
     data = {}
     data['SessionUser'] = getSessionUser(request)
     data['context'] = ""
+
+    dadosConta = db.child('users').child(request.session.get('userId')).get()
+    data['nomeUser'] = dadosConta.val()['nome']
+    data['cidadeUser'] = dadosConta.val()['cidade']
+
+    # Atualizar cadastro
+    if request.method == "POST":
+        nome = request.POST.get('nome', '')
+        cidade = request.POST.get('cidade', '')
+
+        formCadastro = {'nome': nome,
+                        'cidade': cidade}
+        db.child('users').child(request.session.get('userId')).update(formCadastro)
+
+        return redirect('/meujardim/')
+
     return render(request,'users/conta.html', data)
 
 def login(request):
@@ -30,6 +46,7 @@ def valida_senha(request):
         request.session['userEmail'] = email
         request.session['userId'] = sign_user['userId']
         request.session['nomeUsuario'] = userLab.val()['nome']
+        request.session['cidadeUsuario'] = userLab.val()['cidade']
         request.session['perfilUsuario'] = userLab.val()['perfil']
 
 
@@ -49,3 +66,36 @@ def sair (request):
     clear_session(request)
 
     return render(request, "users/login.html")
+
+def novoCadastro (request):
+    data = {}
+    if request.method == "POST":
+        nome = request.POST.get('nome', '')
+        cidade = request.POST.get('cidade', '')
+        email = request.POST.get('email', '')
+        senha = request.POST.get('senha', '')
+
+        sign_user = auth.create_user_with_email_and_password(email, senha)
+        sign_user = auth.refresh(sign_user['refreshToken'])
+        userId = sign_user['userId']
+
+        formCadastro = {"nome": nome,
+                        "cidade": cidade,
+                        "email": email,
+                        "perfil": "P0",
+                        "userId": userId}
+        db.child('users').child(userId).set(formCadastro)
+
+        redirect('/usuario/entrar/')
+
+    return render(request, 'users/novoCadastro.html', data)
+
+
+def removerCadastro (request, userRemover):
+    data = {}
+    data['userRemover'] = userRemover
+    data['nomeUserRemover'] = request.session.get('nomeUsuario')
+
+    db.child('usersParaRemover').set({"userId": request.session.get('userId')})
+
+    return render(request, 'users/removerCadastro.html', data)

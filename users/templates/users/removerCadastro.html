@@ -1,0 +1,34 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Removido!</title>
+
+    <!-- <link rel="shortcut icon" href="Coloque aqui o link da imagem"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <section id="content">
+        <img src="{% static 'img/Logo WebPlantFlow.png' %}" style="max-width:300px; width: auto;">
+        <br>
+        <h1><font color="green">Vamos sentir saudades!</font></h1>
+
+        <center>
+            <div id="confirmar" style="max-width: 90%;">
+                <h3>Quando a conta for removida, todo os dados, incluindo todas as plantas do jardim não poderam ser recuperados!</h3>
+                <br>
+                <button class="btn btn-danger">Remover mesmo assim!</button><br>
+                <br>
+                <font color="black">Cadastro de {{ nomeUserRemover }} removido com sucesso!</font>
+            </div>
+        </center>
+        <br><br>
+
+    </section>
+</div>
+
+</body>
+</html>

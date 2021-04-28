@@ -37,6 +37,7 @@ def getSessionUser(request):
             'idToken': request.session.get('idToken'),
             'userEmail': request.session.get('userEmail'),
             'nomeUsuario': request.session.get('nomeUsuario'),
+            'cidadeUsuario': request.session.get('cidadeUsuario'),
             'perfilUsuario': request.session.get('perfilUsuario'),
             'perfilUsuarioModulos': retornaAcessos(request)}
     #print(data)

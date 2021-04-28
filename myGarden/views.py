@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from WebPlantFlow.decorators import validate_session, getSessionUser
 from WebPlantFlow.pyrebase_settings import db, auth
+from WebPlantFlow.funcoesTodos import mediaDiferenca, plantasDoUsuario, cuidadosTodos
 
 # Bancos
 bancoJardim = 'myGarden'
@@ -16,22 +17,7 @@ def myGarden(request):
 
     #########  Busca plantas já cadastradas pelo usuário
     plantasSalvas   = db.child(bancoJardim).child(request.session.get('userId')).get()
-    listaPlantas    = []
-    try:
-        listaEspeciePlanta = []
-        for especiePlanta in plantasSalvas.each():
-            listaEspeciePlanta.append(especiePlanta.val())
-        for especieUser in listaEspeciePlanta:
-            for plantaUser in especieUser:
-                planta = especieUser[plantaUser]
-                planta['popular'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['popular']
-                planta['foto'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['foto']
-                planta['info'] = db.child('listaPlantas').child(planta['nomeCientifico']).get().val()['informacoes']
-                listaPlantas.append(planta)
-    except:
-        print('Jardim vazio')
-
-    data['listaPlantas'] = listaPlantas
+    data['listaPlantas'] = plantasDoUsuario(plantasSalvas)
 
     return render(request, 'myGarden/myGarden.html', data)
 
@@ -69,7 +55,7 @@ def excluirPlanta(request, especiePlantaSelc, plantaSelc):
     return redirect(urlJardim)
 
 
-def alterarPlanta(request, especiePlantaSelc,plantaSelc): # Falta carregar os dados para alterar no template
+def alterarPlanta(request, especiePlantaSelc, plantaSelc): # Falta carregar os dados para alterar no template
     data = {}
     data['SessionUser'] = getSessionUser(request)
     data['context']     = ""
@@ -89,38 +75,21 @@ def cuidadosPlanta(request, especiePlantaSelc, plantaSelc):
 
     #########  Planta de todos os usuarios
     try:
-        jardimTodosUser = db.child(bancoJardim).get()
-        plantasDaEspecie = []
-        for plantaTodos in jardimTodosUser.each():
-            try:
-                plantasDaEspecie.append(plantaTodos.val()[especiePlantaSelc])
-            except:
-                print('Jardineiro sem essa planta')
-        cuidadosPlantaTodos = []
-        for dadosPlantaTodos in plantasDaEspecie:
-            for nome in dadosPlantaTodos:
-                try:
-                    cuidadosPlantaTodos.append(dadosPlantaTodos[nome]['cuidados'])
-                except:
-                    print('Ninguém cuidando dessa planta')
+        cuidadosPlantaTodos = cuidadosTodos(bancoJardim, especiePlantaSelc, request.session.get('cidadeUsuario'))
 
         qtdAgua = 0
         qtdSol = 0
         for medir in cuidadosPlantaTodos:
             qtdAgua = qtdAgua + int(medir['agua'])
             qtdSol = qtdSol + int(medir['sol'])
-        mediaQtdAgua = qtdAgua/len(cuidadosPlantaTodos)
-        data['mediaQtdAgua'] = mediaQtdAgua
-        try:
-            data['diferencaQtdAgua'] = abs(mediaQtdAgua - int(plantaUser.val()['cuidados']['agua']))
-        except:
-            data['diferencaQtdAgua'] = abs(mediaQtdAgua - 0)
-        mediaQtdSol = qtdSol/len(cuidadosPlantaTodos)
-        data['mediaQtdSol'] = mediaQtdSol
-        try:
-            data['diferencaQtdSol'] = abs(mediaQtdSol - int(plantaUser.val()['cuidados']['sol']))
-        except:
-            data['diferencaQtdSol'] = abs(mediaQtdSol - 0)
+
+        agua = mediaDiferenca(qtdAgua, cuidadosPlantaTodos, plantaUser, 'agua')
+        data['mediaQtdAgua'] = agua[0]
+        data['diferencaQtdAgua'] = agua[1]
+
+        sol = mediaDiferenca(qtdSol, cuidadosPlantaTodos, plantaUser, 'sol')
+        data['mediaQtdSol'] = sol[0]
+        data['diferencaQtdSol'] = sol[1]
 
     except:
         data['mediaQtdAgua'] = 0
